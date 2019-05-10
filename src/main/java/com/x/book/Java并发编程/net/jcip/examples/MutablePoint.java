@@ -6,7 +6,7 @@ import net.jcip.annotations.*;
  * MutablePoint
  * <p/>
  * Mutable Point class similar to java.awt.Point
- *
+ * 位置，x，y
  * @author Brian Goetz and Tim Peierls
  */
 @NotThreadSafe

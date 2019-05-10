@@ -6,6 +6,7 @@ import net.jcip.annotations.*;
  * Counter
  * <p/>
  * Simple thread-safe counter using the Java monitor pattern
+ * java 监视器模式示例。
  *
  * @author Brian Goetz and Tim Peierls
  */
@@ -18,8 +19,9 @@ public final class Counter {
     }
 
     public synchronized long increment() {
-        if (value == Long.MAX_VALUE)
+        if (value == Long.MAX_VALUE){
             throw new IllegalStateException("counter overflow");
+        }
         return ++value;
     }
 }

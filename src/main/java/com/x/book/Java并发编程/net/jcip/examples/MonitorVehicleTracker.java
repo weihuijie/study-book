@@ -8,7 +8,7 @@ import net.jcip.annotations.*;
  * MonitorVehicleTracker
  * <p/>
  * Monitor-based vehicle tracker implementation
- *
+ * 基于监视器的机动车追踪器实现
  * @author Brian Goetz and Tim Peierls
  */
 @ThreadSafe
@@ -30,8 +30,9 @@ import net.jcip.annotations.*;
 
     public synchronized void setLocation(String id, int x, int y) {
         MutablePoint loc = locations.get(id);
-        if (loc == null)
+        if (loc == null){
             throw new IllegalArgumentException("No such ID: " + id);
+        }
         loc.x = x;
         loc.y = y;
     }
@@ -39,8 +40,9 @@ import net.jcip.annotations.*;
     private static Map<String, MutablePoint> deepCopy(Map<String, MutablePoint> m) {
         Map<String, MutablePoint> result = new HashMap<String, MutablePoint>();
 
-        for (String id : m.keySet())
+        for (String id : m.keySet()){
             result.put(id, new MutablePoint(m.get(id)));
+        }
 
         return Collections.unmodifiableMap(result);
     }
