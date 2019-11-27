@@ -15,10 +15,10 @@ import java.util.Arrays;
 
 public class BubbleSort {
 
-    public static Integer[] sort(Integer[] arg){
+    public static int[] sort(int[] arg){
         Long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
-        Integer[] array = Arrays.copyOf(arg,arg.length);
+        int[] array = Arrays.copyOf(arg,arg.length);
         int temp = 0;
         int size = array.length;
         Boolean isSort = true;
@@ -42,7 +42,7 @@ public class BubbleSort {
     }
 
     public static void main(String[] args) {
-        Integer[] array = SortData.getIntegerArray(0,10000,10);
+        int[] array = SortData.getIntArray(0,10000,10);
         array = sort(array);
         System.out.println(Convert.toStr(array));
     }

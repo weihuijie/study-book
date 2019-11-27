@@ -1,5 +1,7 @@
 package com.x.book.suanfa.sort;
 
+import jdk.nashorn.internal.runtime.arrays.ArrayData;
+
 import java.util.Arrays;
 
 /**
@@ -12,10 +14,10 @@ import java.util.Arrays;
  */
 
 public class SelectionSort {
-    public static Integer[] sort(Integer[] arg){
+    public static int[] sort(int[] arg){
         Long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
-        Integer[] array = Arrays.copyOf(arg,arg.length);
+        int[] array = Arrays.copyOf(arg,arg.length);
         //选择最小值位置
         int min = 0;
         int size = array.length;
@@ -34,5 +36,9 @@ public class SelectionSort {
         }
         System.out.println(System.currentTimeMillis()-start);
         return array;
+    }
+
+    public static void main(String[] args) {
+        sort(SortData.getIntArray(0,100000000,10000000));
     }
 }
