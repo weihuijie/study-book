@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.x</groupId>
-    <artifactId>study-book</artifactId>
+    <artifactId>book</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>book</module>
-        <module>mind</module>
-        <module>test</module>
+        <module>simultaneous</module>
     </modules>
-
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
 </project>
