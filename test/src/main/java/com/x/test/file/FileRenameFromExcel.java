@@ -15,6 +15,7 @@ import java.util.*;
 public class FileRenameFromExcel {
     private static String pack = "D:\\学习\\测试\\";
     private static String url = pack + "liansiaiqi-994585482024501249(20180510_223032)-1338119481051107329(20201213_215159)-media"+".xls";
+    private static String auth;
     //可以在中括号内加上任何想要替换的字符，实际上是一个正则表达式
     private static String regEx="[\n`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。， 、？]";
     private static String aa = "";//这里是将特殊字符换为aa字符串,""代表直接去掉
@@ -36,6 +37,9 @@ public class FileRenameFromExcel {
         ExcelUtil.readBySax(url, 0, new RowHandler() {
             @Override
             public void handle(int i, int row, List<Object> list) {
+                if (row == 2){
+                    auth = String.valueOf(list.get(2));
+                }
                 if (row > 5){
                     map.put(String.valueOf(list.get(7)),String.valueOf(list.get(9)));
                 }
