@@ -9,7 +9,7 @@ import java.util.concurrent.Semaphore;
  * @date 2019/11/13 15:10
  */
 
-public class SemaphoreTest{
+public class                                                                                                                                                                                                                                                                                                                                                                             SemaphoreTest{
     public static void main(String[] args) {
         //参数permits表示许可数目，即同时可以允许多少线程进行访问
         //这个多了一个参数fair表示是否是公平的，即等待时间越久的越先获取许可
