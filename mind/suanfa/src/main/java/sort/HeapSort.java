@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class HeapSort {
     public static int[] sort(int[] arg){
-        Long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
         int len = array.length;
@@ -24,6 +24,7 @@ public class HeapSort {
             len--;
             heapify(array,0,len);
         }
+        System.out.println(Convert.toStr(array));
         System.out.println(System.currentTimeMillis()-start);
         return array;
     }
@@ -33,6 +34,11 @@ public class HeapSort {
             heapify(arr,i,len);
         }
     }
+
+    /**
+     *  下沉操作，执行删除操作相当于把最后
+     *  * 一个元素赋给根元素之后，然后对根元素执行下沉操作
+     */
     private static void heapify(int[] arr,int i,int len){
         int left = 2*i + 1;
         int right = 2*i + 2;
@@ -106,6 +112,6 @@ public class HeapSort {
 //        int[] array = sort.SortData.getIntArray(0,10,10);
 //        array = sort(array);
 //        System.out.println(Convert.toStr(array));
-        sort(SortData.getIntArray(0,100000000,100000000));
+        sort(SortData.getIntArray(0,100,10));
     }
 }

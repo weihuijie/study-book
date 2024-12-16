@@ -42,8 +42,11 @@ public class InsertSort implements Sort{
         return array;
     }
 
+    /**
+     *  直接插入排序
+     */
     public static int[] sort(int[] arg){
-        Long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
 
@@ -63,7 +66,42 @@ public class InsertSort implements Sort{
         return array;
     }
 
+    /**
+     *  折半插入排序
+     */
+    public static int[] midSort(int[] arg){
+        long start = System.currentTimeMillis();
+        //复制数组，不改变参数内容
+        int[] array = Arrays.copyOf(arg,arg.length);
+
+        //定义最大最小
+        for (int i = 1; i < array.length; i++) {
+            int temp = array[i];
+            int low = 0;
+            int high = i -1;
+            while (low <= high){
+                int mid = (low + high)/2;
+                if (array[mid] > temp){
+                    high = mid -1;
+                }else {
+                    low = mid + 1;
+                }
+            }
+            if (i - low >= 0) {
+                // 把从索引 low 开始的 i - low 个数字复制到索引为 low + 1 的位置上
+                System.arraycopy(array, low, array, low + 1, i - low);
+            }
+            if (low != i){
+                array[low] = temp;
+            }
+        }
+        System.out.println(System.currentTimeMillis()-start);
+        return array;
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(Convert.toStr(sort(SortData.getIntArray(0,100000000,1000000))));;
+//        System.out.println(Convert.toStr(sort(SortData.getIntArray(0,10,10))));
+        System.out.println(Convert.toStr(midSort(SortData.getIntArray(0,10,10))));
     }
 }

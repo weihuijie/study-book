@@ -1,0 +1,54 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-cloud-zuul
+  # Spring Session配置
+  session:
+    store-type: redis
+    timeout: PT30M
+  # Redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: PT30M
+
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    service-url:
+      #服务注册中心的配置内容，指定服务注册中心的位置
+      defaultZone: "http://admin:admin@${eureka.instance.hostname}:8888/eureka/"
+
+zuul:
+  #路由
+  routes:
+    spring-cloud-feign:
+      path: /feign/**
+      #是否将请求路径去除前缀再去指定服务中访问
+      strip-prefix: false
+    spring-cloud-hystrix:
+      path: /hystrix/**
+      #是否将请求路径去除前缀再去指定服务中访问
+      strip-prefix: false
+  #关闭默认路由，忽略掉一个服务
+  ignored-services: spring-cloud-feign,spring-cloud-hystrix
+  #给网关路由添加前缀，此处添加了/proxy前缀，这样我们需要访问http://localhost:8801/proxy/user-service/user/1才能访问到user-service中的接口
+  #prefix: /proxy
+  #Zuul在请求路由时，默认会过滤掉一些敏感的头信息，以下配置可以防止路由时的Cookie及Authorization的丢失
+  #sensitive-headers: Cookie,Set-Cookie,Authorization
+  #session 共享sensitiveHeaders需要设置为 "*"，默认Zuul转发时不携带Cookie等敏感信息，会导致Session不一致
+  sensitive-headers: "*"
+  #Zuul在请求路由时，不会设置最初的host头信息，以下配置可以解决,设置为true重定向会添加host请求头
+  add-host-header: true
+
+#开启查看路由的端点,通过访问http://localhost:8801/actuator/routes查看简单路由信息
+#通过访问http://localhost:8801/actuator/routes/details查看详细路由信息：
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'routes'

@@ -1,0 +1,40 @@
+server:
+  port: 8871
+# 一定要创建 bootstrap.yml ，若创建 application.yml 则会报错，在 springboot 中 bootstrap.yml 中的配置文件会优先被加载
+spring:
+  application:
+    name: configClient
+  cloud:
+    config:
+      # 多个用逗号隔开
+      name: config
+      profile: dev
+      discovery:
+        #启用服务发现功能
+        enabled: true
+        service-id: configServer
+      #连接失败服务报错
+      fail-fast: true
+
+  rabbitmq: # rabbitmq 参数配置
+    # 登录 Rabbitmq 后台管理页面地址为：http://localhost:15672
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    service-url:
+      #服务注册中心的配置内容，指定服务注册中心的位置
+      defaultZone: "http://admin:admin@${eureka.instance.hostname}:8888/eureka/"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

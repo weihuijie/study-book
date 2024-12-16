@@ -20,35 +20,33 @@ import java.util.Arrays;
 
 public class QuickSort  {
     public static int[] sort(int[] arg){
-        Long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
 
-        array = quickSort(array,0,array.length-1);
+        quickSort(array, 0, array.length - 1);
         System.out.println(System.currentTimeMillis()-start);
         return array;
     }
 
-    public static int[] quickSort(int[] array,int left,int right){
+    public static void quickSort(int[] array, int left, int right){
         if (left < right){
             int index = partition(array,left,right);
             quickSort(array,left,index -1);
             quickSort(array,index + 1,right);
         }
-        return array;
     }
 
     private static int partition(int[] array, int left, int right) {
         //设置基准值
-        int pivot = left;
-        int index = pivot + 1;
+        int index = left + 1;
         for (int i = index; i <= right; i++) {
-            if (array[i] < array[pivot]){
+            if (array[i] < array[left]){
                 swap(array,i,index);
                 index++;
             }
         }
-        swap(array,pivot,index -1);
+        swap(array, left,index -1);
         return index-1;
     }
 

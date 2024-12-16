@@ -17,7 +17,7 @@ public class CountDownLautchTest {
     public static void main(String[] args) {
         final CountDownLatch latch = new CountDownLatch(2);
 
-        ThreadPool.executorService.submit(() -> {
+        new ThreadPool().executorService.submit(() -> {
             System.out.println("子线程1开始执行");
             try {
                 Thread.sleep(5000);

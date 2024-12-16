@@ -1,7 +1,5 @@
 package sort;
 
-import cn.hutool.core.convert.Convert;
-
 import java.util.Arrays;
 
 /**
@@ -16,21 +14,28 @@ public class countSort {
         Long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
-        int max = getMaxValue(array);
-        array = countSort(array,max);
+        // 寻找数组的最大值与最小值
+        int n = arg.length;
+        int min = arg[0];
+        int max = arg[0];
+        for (int i = 1; i < n; i++) {
+            if(max < arg[i])
+                max = arg[i];
+            if(min > arg[i])
+                min = arg[i];
+        }
+        int bucketLen = max - min + 1;
+        array = countSort(array,bucketLen);
         System.out.println(System.currentTimeMillis()-start);
         return array;
     }
 
 
-    private static int[] countSort(int[] array,int max){
-        int bucketLen = max + 1;
+    private static int[] countSort(int[] array,int bucketLen){
         int[] bucket = new int[bucketLen];
-
         for (int i : array) {
             bucket[i]++;
         }
-
         int sortedIndex = 0;
         for (int j = 0; j < bucketLen; j++) {
             while (bucket[j] > 0){
@@ -39,16 +44,6 @@ public class countSort {
             }
         }
         return array;
-    }
-
-    private static int getMaxValue(int[] array){
-        int max = array[0];
-        for (int i : array) {
-            if (max < i){
-                max = i;
-            }
-        }
-        return max;
     }
 
     public static void main(String[] args) {

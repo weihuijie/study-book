@@ -1,0 +1,24 @@
+server:
+  port: 8800
+spring:
+  application:
+    name: spring-cloud-feign
+
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    service-url:
+      #服务注册中心的配置内容，指定服务注册中心的位置
+      defaultZone: "http://admin:admin@${eureka.instance.hostname}:8888/eureka/"
+
+feign:
+  client:
+    config:
+      metaDataClient:
+        connect-timeout: 50000
+        read-timeout: 50000
+  # 开启服务降级，保护。Fallback
+  hystrix:
+    enabled: true

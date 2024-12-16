@@ -1,13 +1,10 @@
 package sort;
 
-import cn.hutool.core.convert.Convert;
-
 import java.util.Arrays;
 
 /**
  * 归并排序
  *      归并排序（Merge sort）是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。
- *  
  *      作为一种典型的分而治之思想的算法应用，归并排序的实现由两种方法：
  * 	        • 自上而下的递归（所有递归的方法都可以用迭代重写，所以就有了第 2 种方法）；
  * 	        • 自下而上的迭代；
@@ -39,7 +36,6 @@ public class MergeSort {
         }
         return merge(array,0,array.length-1);
     }
-
     private static int[] merge(int[] array,int min,int max) {
         if (min >= max){
             return array;
@@ -62,8 +58,7 @@ public class MergeSort {
             }else if (j > max){
                 array[k] = sort[i-min];
                 i++;
-            }else
-            if (sort[i-min] < sort[j-min]){
+            }else if (sort[i-min] < sort[j-min]){
                 array[k] = sort[i-min];
                 i++;
             }else {
@@ -74,9 +69,49 @@ public class MergeSort {
         return array;
     }
 
+
+    // 归并排序
+    public static int[] mergeSort(int[] arr, int left, int right) {
+        // 如果 left == right，表示数组只有一个元素，则不用递归排序
+        if (left < right) {
+            // 把大的数组分隔成两个数组
+            int mid = (left + right) / 2;
+            // 对左半部分进行排序
+            arr = mergeSort(arr, left, mid);
+            // 对右半部分进行排序
+            arr = mergeSort(arr, mid + 1, right);
+            //进行合并
+            merge(arr, left, mid, right);
+        }
+        return arr;
+    }
+
+    // 合并函数，把两个有序的数组合并起来
+    // arr[left..mif]表示一个数组，arr[mid+1 .. right]表示一个数组
+    private static void merge(int[] arr, int left, int mid, int right) {
+        //先用一个临时数组把他们合并汇总起来
+        int[] a = new int[right - left + 1];
+        int i = left;
+        int j = mid + 1;
+        int k = 0;
+        while (i <= mid && j <= right) {
+            if (arr[i] < arr[j]) {
+                a[k++] = arr[i++];
+            } else {
+                a[k++] = arr[j++];
+            }
+        }
+        while(i <= mid) a[k++] = arr[i++];
+        while(j <= right) a[k++] = arr[j++];
+        // 把临时数组复制到原数组
+        for (i = 0; i < k; i++) {
+            arr[left++] = a[i];
+        }
+    }
+
     public static void main(String[] args) {
         Long start = System.currentTimeMillis();
-        int[] array = SortData.getIntArray(0,10,100000000);
+        int[] array = SortData.getIntArray(0,100,10);
         array = sort(array);
         System.out.println(System.currentTimeMillis()-start);
     }

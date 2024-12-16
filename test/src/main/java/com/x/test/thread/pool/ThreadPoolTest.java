@@ -17,7 +17,8 @@ public class ThreadPoolTest {
     private int i;
     public void poolSubmitTest(){
         // Runnable 提交任务
-        ThreadPool.executorService.submit(
+        ThreadPool threadPool = new ThreadPool();
+        threadPool.executorService.submit(
                 new Runnable() {
                     @Override
                     public void run() {
@@ -27,7 +28,7 @@ public class ThreadPoolTest {
         );
 
         // Callable 提交任务
-        Future<Object> future = ThreadPool.executorService.submit(
+        Future<Object> future = threadPool.executorService.submit(
                 new Callable<Object>() {
                     @Override
                     public Object call() {
@@ -45,6 +46,7 @@ public class ThreadPoolTest {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        threadPool.shutdown();
         log.info("poolSubmitTest");
     }
 

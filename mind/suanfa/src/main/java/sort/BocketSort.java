@@ -12,18 +12,19 @@ import java.util.Arrays;
 public class BocketSort {
 
     public static int[] sort(int[] arg){
-        Long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
-        array = bucketSort(array,10);
+        bucketSort(array, 10);
         System.out.println(System.currentTimeMillis()-start);
         return array;
     }
 
-    private static int[] bucketSort(int[] arr,int bucketSize){
+    private static void bucketSort(int[] arr, int bucketSize){
         if(arr.length == 0){
-            return arr;
+            return;
         }
+        // 寻找数组的最大值与最小值
         int min = arr[0];
         int max = arr[0];
         for (int i : arr) {
@@ -33,6 +34,7 @@ public class BocketSort {
                 max = i;
             }
         }
+        //和优化版本的计数排序一样，弄一个大小为 min 的偏移值
         int bucketCount = (int)(Math.floor((max - min)/bucketSize)) + 1;
         int[][] buckets = new int[bucketCount][0];
 
@@ -46,15 +48,13 @@ public class BocketSort {
             if (bucket.length<0){
                 continue;
             }
-            //对每个桶进行排序，这里使用插入排序
+            //对每个桶进行排序，这里使用计数排序
             bucket = countSort.sort(bucket);
             for (int i : bucket) {
                 arr[arrIndex++] = i;
             }
         }
-        return arr;
     }
-
     /**
      *  自动扩容，并保存数据
      * @return
@@ -69,6 +69,6 @@ public class BocketSort {
 //        int[] array = sort.SortData.getIntArray(0,10,10);
 //        array = sort(array);
 //        System.out.println(Convert.toStr(array));
-        sort(SortData.getIntArray(0,100000000,100000000));
+        sort(SortData.getIntArray(0,1000,1000));
     }
 }

@@ -28,7 +28,7 @@ public class CyclicBarrierTest {
             }
         });
         for (int i = 0; i < N; i++) {
-            ThreadPool.executorService.submit(new Writer(barrier));
+            new ThreadPool().executorService.submit(new Writer(barrier));
         }
     }
 

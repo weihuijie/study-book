@@ -12,8 +12,9 @@ import java.util.Arrays;
  */
 
 public class SelectionSort {
-    public static int[] sort(int[] arg){
-        Long start = System.currentTimeMillis();
+
+    public static void selectionSort(int[] arg){
+        long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
         //选择最小值位置
@@ -33,10 +34,9 @@ public class SelectionSort {
             }
         }
         System.out.println(System.currentTimeMillis()-start);
-        return array;
     }
 
     public static void main(String[] args) {
-        sort(SortData.getIntArray(0,100000000,10000000));
+        selectionSort(SortData.getIntArray(0,100000000,10000000));
     }
 }

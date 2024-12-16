@@ -1,0 +1,33 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: spring-cloud-zipkin
+  zipkin:
+    # false表示该项目部经过追踪
+    enabled: true
+    # 指向zipkin服务
+    # 若一个接口访问多个服务并且你都想检测，那么各个服务都引入Zipkin技术支持，且都指向Zipkin服务
+    base-url: http://localhost:8081/
+  sleuth:
+    sampler:
+      # 1.0表示以 100% 的概率将链路的数据上传给 Zipkin Server ， 在默认情况下 ， 该值为0.1
+      probability: 1.0f
+
+
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    service-url:
+      #服务注册中心的配置内容，指定服务注册中心的位置
+      defaultZone: "http://admin:admin@${eureka.instance.hostname}:8888/eureka/"
+
+
+#zipkin启动报错无法访问的解决方法
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false

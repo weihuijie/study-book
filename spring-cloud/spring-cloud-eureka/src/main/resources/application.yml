@@ -1,0 +1,20 @@
+server:
+  #服务注册中心端口号
+  port: 8888
+
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    #是否想服务注册中心注册自己
+    register-with-eureka: false
+    #是否检索服务
+    fetch-registry: false
+
+# eureka 开启用户名密码
+spring:
+  security:
+    user:
+      name: admin
+      password: admin

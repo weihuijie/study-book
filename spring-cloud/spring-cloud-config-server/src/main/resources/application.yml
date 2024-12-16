@@ -1,0 +1,38 @@
+server:
+  port: 8870
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    service-url:
+      #服务注册中心的配置内容，指定服务注册中心的位置
+      defaultZone: "http://admin:admin@${eureka.instance.hostname}:8888/eureka/"
+spring:
+  application:
+    #服务名称
+    name: configServer
+  profiles:
+    #使用本地属性文件
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/ #config 服务端配置文件地址
+        # git: 启用git配置
+
+  rabbitmq: # rabbitmq 参数配置
+    # 登录 Rabbitmq 后台管理页面地址为：http://localhost:15672
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+

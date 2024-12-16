@@ -15,13 +15,17 @@ import java.util.Arrays;
 
 public class BubbleSort {
 
-    public static int[] sort(int[] arg){
-        Long start = System.currentTimeMillis();
+    /**
+     *  冒泡排序
+     */
+    public static int[] bubbleSort(int[] arg){
+        long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
+
         int temp = 0;
         int size = array.length;
-        Boolean isSort = true;
+        boolean isSort = true;
         //循环次数，从第二个开始
         for (int i = 1; i < size; i++) {
             //将冒泡的数与后面的数值比较
@@ -43,7 +47,7 @@ public class BubbleSort {
 
     public static void main(String[] args) {
         int[] array = SortData.getIntArray(0,10000,10);
-        array = sort(array);
+        array = bubbleSort(array);
         System.out.println(Convert.toStr(array));
     }
 }

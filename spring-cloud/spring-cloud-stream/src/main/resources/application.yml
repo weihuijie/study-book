@@ -1,0 +1,58 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: spring-cloud-stream
+
+  cloud:
+    stream:
+      # 如果有一个binder的话,就不需要设置
+      default-binder: rabbit
+      # 在此处配置要绑定的 rabbitmq的服务信息
+      binders:
+        # 表示自定义的名称，用于binding整合
+        defaultRabbit:
+          # 消息组件类型
+          type: rabbit
+          # 设置rabbitmq的相关环境配置
+          enviroment:
+            spring:
+              rabbitmq:
+                host: 127.0.0.1
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        #在RabbitMQ中，binding的名称对应的是output和input的名称，destination对应mq中的exchange名称。
+        message_out_1:
+          # 设置要绑定的消息服务的具体设置
+          binder: defaultRabbit
+          # 表示要使用的 Exchange名称定义
+          destination: my_test
+          # 设置消息类型，本次为对象json，如果是文本则设置 'text/plain'
+          content-type: application/json
+        message_out_2:
+          # 设置要绑定的消息服务的具体设置
+          binder: defaultRabbit
+          # 表示要使用的 Exchange名称定义
+          destination: my_2_test
+          # 设置消息类型，本次为对象json，如果是文本则设置 'text/plain'
+          content-type: application/json
+        output:
+          # 设置要绑定的消息服务的具体设置
+          binder: rabbit
+          # 表示要使用的 Exchange名称定义
+          destination: studyExchange
+          # 设置消息类型，本次为对象json，如果是文本则设置 'text/plain'
+          content-type: application/json
+
+eureka:
+  instance:
+    #服务注册中心实例的主机名
+    hostname: localhost
+  client:
+    service-url:
+      #服务注册中心的配置内容，指定服务注册中心的位置
+      defaultZone: "http://admin:admin@${eureka.instance.hostname}:8888/eureka/"
+
+

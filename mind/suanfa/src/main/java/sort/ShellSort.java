@@ -49,39 +49,34 @@ public class ShellSort {
     }
 
     /**
-     *  第二种方式
-     * @param arg
-     * @return
+     *  希尔排序
      */
-    public static int[] sort2(int[] arg){
-        Long start = System.currentTimeMillis();
+    public static int[] shellSort(int[] arg){
+        long start = System.currentTimeMillis();
         //复制数组，不改变参数内容
         int[] array = Arrays.copyOf(arg,arg.length);
         int gap = array.length;
-        while (true){
+        do {
             //增量每次减半
-            gap = gap/2;
+            gap = gap / 2;
             for (int i = 0; i < gap; i++) {
                 //插入排序
-                for (int j = i+gap; j < array.length ; j+=gap) {
+                for (int j = i + gap; j < array.length; j += gap) {
                     int temp = array[j];
-                    int k = j -  gap;
-                    while (k>=0 && array[k] > temp){
-                        array[k+gap] = array[k];
+                    int k = j - gap;
+                    while (k >= 0 && array[k] > temp) {
+                        array[k + gap] = array[k];
                         k = k - gap;
                     }
-                    array[k+gap] = temp;
+                    array[k + gap] = temp;
                 }
             }
-            if (gap ==1){
-                break;
-            }
-        }
+        } while (gap != 1);
         System.out.println(System.currentTimeMillis()-start);
         return array;
     }
 
     public static void main(String[] args) {
-        System.out.println(Convert.toStr(sort2(SortData.getIntArray())));
+        System.out.println(Convert.toStr(shellSort(SortData.getIntArray(0,10,10))));
     }
 }
